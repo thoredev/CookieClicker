@@ -55,12 +55,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));
-                    ccount+=multiplier;
-                    SharedPreferences.Editor edit = countSettings.edit();
-                    edit.putInt("counts",ccount);
-                    edit.apply();
-                    tv.setText(Integer.toString(ccount));
+                    float x = event.getX();
+                    float y = event.getY();
+                    //Berechne Mittelpunkt des Kekses
+                    float m_x = button.getWidth()/2;
+                    float m_y = button.getHeight()/2;
+                    //Berechne Entfernung zum Mittelpunkt
+                    double d = Math.sqrt(Math.pow(Math.abs(m_x-x), 2)+Math.pow(Math.abs(m_y-y), 2));
+
+                    //Prüfe ob Keks angeklickt
+                    if(d<=m_x) {
+                        button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));
+                        ccount += multiplier;
+                        SharedPreferences.Editor edit = countSettings.edit();
+                        edit.putInt("counts", ccount);
+                        edit.apply();
+                        tv.setText(Integer.toString(ccount));
+                    }
+
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     button.setImageDrawable(getResources().getDrawable(R.drawable.cookie));
                 }
