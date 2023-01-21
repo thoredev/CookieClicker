@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if(ccount >= 1000*Math.pow(1.5, multiplier-1)){
-                    ccount -= 1000*Math.pow(1.5, multiplier-1);
+                if(ccount >= (int)(1000*Math.pow(1.5, multiplier-1))){
+                    ccount -= (int)(1000*Math.pow(1.5, multiplier-1));
                     tv.setText(Integer.toString(ccount));
                     multiplier++;
                     SharedPreferences.Editor edit = countSettings.edit();
