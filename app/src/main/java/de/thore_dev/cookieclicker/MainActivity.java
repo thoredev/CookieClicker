@@ -1,6 +1,7 @@
 package de.thore_dev.cookieclicker;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     static int multiplier;
 
 
+    static SharedPreferences countSettings;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        SharedPreferences countSettings = getSharedPreferences("count", 0);
+        countSettings = getSharedPreferences("count", 0);
         ccount = countSettings.getInt("counts",0);
         multiplier = countSettings.getInt("mults", 1);
         TextView tv = findViewById(R.id.textView2);
@@ -82,22 +85,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button button2 = findViewById(R.id.button2);
-        button2.setText("Power-Up für: " + (int)(1000*Math.pow(1.5, multiplier-1)));
-        button2.setOnClickListener(new View.OnClickListener(){
+        Button btnUpgrades = findViewById(R.id.button2);
+        btnUpgrades.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                if(ccount >= (int)(1000*Math.pow(1.5, multiplier-1))){
-                    ccount -= (int)(1000*Math.pow(1.5, multiplier-1));
-                    tv.setText(Integer.toString(ccount));
-                    multiplier++;
-                    SharedPreferences.Editor edit = countSettings.edit();
-                    edit.putInt("mults",multiplier);
-                    edit.apply();
-                    tv2.setText(Integer.toString(multiplier)+"x");
-                    button2.setText("Power-Up für: " + (int)(1000*Math.pow(1.5, multiplier-1)));
-                }
+                Intent switchActivity = new Intent(MainActivity.this, ShopActivity.class);
+                startActivity(switchActivity);
             }
         });
     }

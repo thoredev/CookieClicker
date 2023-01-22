@@ -73,7 +73,7 @@
         android:layout_marginStart="159dp"
         android:layout_marginEnd="164dp"
         android:layout_marginBottom="16dp"
-        android:text="Power-Up für: 1000"
+        android:text="Upgrades"
         android:textColorHighlight="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
