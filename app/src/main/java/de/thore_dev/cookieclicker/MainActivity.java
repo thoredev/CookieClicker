@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     static int ccount;
     static int multiplier;
 
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
