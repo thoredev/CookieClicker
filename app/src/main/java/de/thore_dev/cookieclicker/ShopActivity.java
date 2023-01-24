@@ -16,7 +16,7 @@ public class ShopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop);
 
         Button btnMultUp = findViewById(R.id.button3);
-        btnMultUp.setText("Multiplizierer-Upgrade für: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
+        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
         btnMultUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +29,7 @@ public class ShopActivity extends AppCompatActivity {
                     edit.putInt("counts",MainActivity.ccount);
                     edit.apply();
 
-                    btnMultUp.setText("Multiplizierer-Upgrade für: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
+                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
                 }
             }
         });
