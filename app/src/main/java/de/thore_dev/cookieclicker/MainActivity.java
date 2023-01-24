@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent switchActivity = new Intent(MainActivity.this, ShopActivity.class);
                 startActivity(switchActivity);
+              
             }
         });
     }
