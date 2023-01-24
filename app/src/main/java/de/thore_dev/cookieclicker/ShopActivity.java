@@ -34,6 +34,25 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
+        Button btnAutoclick = findViewById(R.id.button5);
+        btnAutoclick.setText("Autoclick: " + (2500+1000*MainActivity.clickspersecond));
+        btnAutoclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.ccount>= 2500+1000*MainActivity.clickspersecond){
+                    MainActivity.ccount -= 2500+1000*MainActivity.clickspersecond;
+                    MainActivity.clickspersecond++;
+
+                    SharedPreferences.Editor edit = MainActivity.countSettings.edit();
+                    edit.putInt("cps",MainActivity.clickspersecond);
+                    edit.putInt("counts",MainActivity.ccount);
+                    edit.apply();
+
+                    btnAutoclick.setText("Autoclick: " + (2500+1000*MainActivity.clickspersecond));
+                }
+            }
+        });
+
         Button btnBack = findViewById(R.id.button4);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

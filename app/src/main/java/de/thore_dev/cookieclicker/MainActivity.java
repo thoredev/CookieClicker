@@ -24,6 +24,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -31,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     static int ccount;
     static int multiplier;
+    static int clickspersecond;
 
+    static Timer t;
 
     static SharedPreferences countSettings;
 
@@ -46,8 +55,27 @@ public class MainActivity extends AppCompatActivity {
         countSettings = getSharedPreferences("count", 0);
         ccount = countSettings.getInt("counts",0);
         multiplier = countSettings.getInt("mults", 1);
+        clickspersecond = countSettings.getInt("cps", 0);
+
         TextView tv = findViewById(R.id.textView2);
         tv.setText(Integer.toString(ccount));
+        if(t != null) {
+            t.cancel();
+        }
+        t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                ccount+=clickspersecond;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv.setText(Integer.toString(ccount));
+                    }
+                });
+
+            }
+        }, 0, 1000);
 
         TextView tv2 = findViewById(R.id.textView3);
         tv2.setText(Integer.toString(multiplier)+"x");
