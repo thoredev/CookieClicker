@@ -44,6 +44,39 @@ public class MainActivity extends AppCompatActivity {
 
     static SharedPreferences countSettings;
 
+    public void initTimer(TextView tv){
+        if(t == null) {
+            t = new Timer();
+            t.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    ccount += clickspersecond;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv.setText(Integer.toString(ccount));
+                        }
+                    });
+
+                }
+            }, 0, 1000);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        t.cancel();
+        t = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        TextView tv = findViewById(R.id.textView2);
+        initTimer(tv);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.textView2);
         tv.setText(Integer.toString(ccount));
-        if(t != null) {
-            t.cancel();
-        }
-        t = new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                ccount+=clickspersecond;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv.setText(Integer.toString(ccount));
-                    }
-                });
-
-            }
-        }, 0, 1000);
 
         TextView tv2 = findViewById(R.id.textView3);
         tv2.setText(Integer.toString(multiplier)+"x");
