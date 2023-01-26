@@ -22,7 +22,7 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(gameState.getCcount()>= (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))){
-                    gameState.incCcount(-1* (int)(1000*Math.pow(1.5, gameState.getMultiplier())-1));
+                    gameState.incCcount(-1* (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
                     gameState.setMultiplier(gameState.getMultiplier()+1);
 
                     btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
