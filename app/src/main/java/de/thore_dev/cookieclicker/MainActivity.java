@@ -36,13 +36,42 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    static int ccount;
-    static int multiplier;
-    static int clickspersecond;
-
     static Timer t;
 
-    static SharedPreferences countSettings;
+    static GameState gameState;
+
+    public void initTimer(TextView tv){
+        if(t == null) {
+            t = new Timer();
+            t.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    gameState.incCcount(gameState.getClickspersecond());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv.setText(Integer.toString(gameState.getCcount()));
+                        }
+                    });
+
+                }
+            }, 0, 1000);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        t.cancel();
+        t = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        TextView tv = findViewById(R.id.textView2);
+        initTimer(tv);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -52,30 +81,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        GameState gameState = new GameState(getSharedPreferences("gameState", 0));
+        gameState = new GameState(getSharedPreferences("gameState", 0));
 
         TextView tv = findViewById(R.id.textView2);
-        tv.setText(Integer.toString(ccount));
-        if(t != null) {
-            t.cancel();
-        }
-        t = new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                ccount+=clickspersecond;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv.setText(Integer.toString(ccount));
-                    }
-                });
-
-            }
-        }, 0, 1000);
+        tv.setText(Integer.toString(gameState.getCcount()));
 
         TextView tv2 = findViewById(R.id.textView3);
-        tv2.setText(Integer.toString(multiplier)+"x");
+        tv2.setText(Integer.toString(gameState.getMultiplier())+"x");
 
         ImageButton button = findViewById(R.id.button);
 
@@ -95,11 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     //Prüfe ob Keks angeklickt
                     if(d<=m_x) {
                         button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));
-                        ccount += multiplier;
-                        SharedPreferences.Editor edit = countSettings.edit();
-                        edit.putInt("counts", ccount);
-                        edit.apply();
-                        tv.setText(Integer.toString(ccount));
+                        gameState.incCcount(gameState.getMultiplier());
+                        tv.setText(Integer.toString(gameState.getCcount()));
                     }
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
