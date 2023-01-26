@@ -25,6 +25,8 @@ public class GameActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityGameBinding binding;
 
+    static boolean activitySwitch;
+
     static Timer t;
 
     static GameState gameState;
@@ -55,6 +57,10 @@ public class GameActivity extends AppCompatActivity {
         t = null;
 
         gameState.setOfflineTime(Calendar.getInstance().getTime());
+
+        if(!activitySwitch){
+            finish();
+        }
     }
 
     @Override
@@ -71,6 +77,8 @@ public class GameActivity extends AppCompatActivity {
 
         binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        activitySwitch = false;
 
         gameState = new GameState(getSharedPreferences("gameState", 0));
 
@@ -115,6 +123,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                activitySwitch = true;
                 Intent switchActivity = new Intent(GameActivity.this, ShopActivity.class);
                 startActivity(switchActivity);
               

@@ -7,12 +7,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Calendar;
+
 public class ShopActivity extends AppCompatActivity {
+
+    static boolean activitySwitch;
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!activitySwitch){
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+
+        activitySwitch = false;
 
         GameState gameState = new GameState(getSharedPreferences("gameState", 0));
 
@@ -48,6 +62,7 @@ public class ShopActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                activitySwitch = true;
                 Intent switchActivity = new Intent(ShopActivity.this, GameActivity.class);
                 startActivity(switchActivity);
             }
