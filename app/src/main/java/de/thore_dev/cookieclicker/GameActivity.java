@@ -2,39 +2,28 @@ package de.thore_dev.cookieclicker;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import de.thore_dev.cookieclicker.databinding.ActivityMainBinding;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
+import de.thore_dev.cookieclicker.databinding.ActivityGameBinding;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private ActivityGameBinding binding;
 
     static Timer t;
 
@@ -60,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         t.cancel();
         t = null;
+
+        gameState.setOfflineTime(Calendar.getInstance().getTime());
     }
 
     @Override
@@ -78,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         gameState = new GameState(getSharedPreferences("gameState", 0));
@@ -124,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent switchActivity = new Intent(MainActivity.this, ShopActivity.class);
+                Intent switchActivity = new Intent(GameActivity.this, ShopActivity.class);
                 startActivity(switchActivity);
               
             }

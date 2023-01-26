@@ -2,6 +2,9 @@ package de.thore_dev.cookieclicker;
 
 import android.content.SharedPreferences;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class GameState {
     private SharedPreferences pref;
 
@@ -11,53 +14,62 @@ public class GameState {
 
     private int clickspersecond;
 
-    public GameState(SharedPreferences v){
+    public GameState(SharedPreferences v) {
         pref = v;
-        ccount = pref.getInt("ccount",0);
-        multiplier = pref.getInt("multiplier",1);
-        clickspersecond = pref.getInt("clickspersecond",0);
+        ccount = pref.getInt("ccount", 0);
+        multiplier = pref.getInt("multiplier", 1);
+        clickspersecond = pref.getInt("clickspersecond", 0);
     }
 
+    public void setOfflineTime(Date v){
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("offlinedate", v.toString());
+        edit.apply();
+    }
 
-    public int getCcount(){
+    public Date getOfflineTime(){
+        return new Date(pref.getString("offlinedate", Calendar.getInstance().getTime().toString()));
+    }
+
+    public int getCcount() {
         return ccount;
     }
 
-    public void setCcount(int v){
+    public void setCcount(int v) {
         ccount = v;
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("ccount",ccount);
+        edit.putInt("ccount", ccount);
         edit.apply();
     }
 
-    public void incCcount(int v){
-        ccount+=v;
+    public void incCcount(int v) {
+        ccount += v;
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("ccount",ccount);
+        edit.putInt("ccount", ccount);
         edit.apply();
     }
 
 
-    public int getMultiplier(){
+    public int getMultiplier() {
         return multiplier;
     }
 
-    public void setMultiplier(int v){
+    public void setMultiplier(int v) {
         multiplier = v;
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("multiplier",multiplier);
+        edit.putInt("multiplier", multiplier);
         edit.apply();
     }
 
 
-    public int getClickspersecond(){
+    public int getClickspersecond() {
         return clickspersecond;
     }
 
-    public void setClickspersecond(int v){
+    public void setClickspersecond(int v) {
         clickspersecond = v;
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt("clickspersecond",clickspersecond);
+        edit.putInt("clickspersecond", clickspersecond);
         edit.apply();
     }
 

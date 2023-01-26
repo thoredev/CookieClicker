@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#6DAECC"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".GameActivity">
 
     <ImageButton
         android:id="@+id/button"
