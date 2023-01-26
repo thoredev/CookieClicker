@@ -15,40 +15,32 @@ public class ShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
+        GameState gameState = new GameState(getSharedPreferences("gameState", 0));
+
         Button btnMultUp = findViewById(R.id.button3);
-        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
+        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
         btnMultUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MainActivity.ccount >= (int)(1000*Math.pow(1.5, MainActivity.multiplier-1))){
-                    MainActivity.ccount -= (int)(1000*Math.pow(1.5, MainActivity.multiplier-1));
-                    MainActivity.multiplier++;
+                if(gameState.getCcount()>= (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))){
+                    gameState.incCcount(-1* (int)(1000*Math.pow(1.5, gameState.getMultiplier())-1));
+                    gameState.setMultiplier(gameState.getMultiplier()+1);
 
-                    SharedPreferences.Editor edit = MainActivity.countSettings.edit();
-                    edit.putInt("mults",MainActivity.multiplier);
-                    edit.putInt("counts",MainActivity.ccount);
-                    edit.apply();
-
-                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, MainActivity.multiplier-1)));
+                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
                 }
             }
         });
 
         Button btnAutoclick = findViewById(R.id.button5);
-        btnAutoclick.setText("Autoclick: " + (2500+1000*MainActivity.clickspersecond));
+        btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getMultiplier()));
         btnAutoclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.ccount>= 2500+1000*MainActivity.clickspersecond){
-                    MainActivity.ccount -= 2500+1000*MainActivity.clickspersecond;
-                    MainActivity.clickspersecond++;
+                if (gameState.getCcount()>= 2500+1000* gameState.getClickspersecond()){
+                    gameState.incCcount(-1*(2500+1000* gameState.getClickspersecond()));
+                    gameState.setClickspersecond(gameState.getClickspersecond()+1);
 
-                    SharedPreferences.Editor edit = MainActivity.countSettings.edit();
-                    edit.putInt("cps",MainActivity.clickspersecond);
-                    edit.putInt("counts",MainActivity.ccount);
-                    edit.apply();
-
-                    btnAutoclick.setText("Autoclick: " + (2500+1000*MainActivity.clickspersecond));
+                    btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getMultiplier()));
                 }
             }
         });
