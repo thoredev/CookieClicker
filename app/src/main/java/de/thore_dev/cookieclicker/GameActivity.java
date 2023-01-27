@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
         gameState.setOfflineTime(Calendar.getInstance().getTime());
 
         if(!activitySwitch){
-            finish();
+            finishAffinity(); //Close App and all activities
         }
     }
 
