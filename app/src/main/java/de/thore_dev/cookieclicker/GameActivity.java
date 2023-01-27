@@ -27,11 +27,14 @@ public class GameActivity extends AppCompatActivity {
 
     static boolean activitySwitch;
 
+    //Anzahl der geklickten Cookies in einer Sekunde
+    static int userClicks;
+
     static Timer t;
 
     static GameState gameState;
 
-    public void initTimer(TextView tv){
+    public void initTimer(TextView tv, TextView tv2){
         if(t == null) {
             t = new Timer();
             t.scheduleAtFixedRate(new TimerTask() {
@@ -42,6 +45,8 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             tv.setText(Integer.toString(gameState.getCcount()));
+                            tv2.setText(gameState.getClickspersecond()+userClicks + " CPS");
+                            userClicks = 0;
                         }
                     });
 
@@ -67,7 +72,8 @@ public class GameActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         TextView tv = findViewById(R.id.textView2);
-        initTimer(tv);
+        TextView tv2 = findViewById(R.id.textView8);
+        initTimer(tv, tv2);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -105,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
 
                     //Prüfe ob Keks angeklickt
                     if(d<=m_x) {
+                        userClicks++;
                         button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));
                         gameState.incCcount(gameState.getMultiplier());
                         tv.setText(Integer.toString(gameState.getCcount()));
