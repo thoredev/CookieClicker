@@ -15,6 +15,20 @@ import java.util.concurrent.TimeUnit;
 public class OfflineEarningActivity extends AppCompatActivity {
 
     @Override
+    public void onResume() {
+        super.onResume();
+        GameState gameState = new GameState(getSharedPreferences("gameState", 0));
+        Date curTime = Calendar.getInstance().getTime();
+        Date lastTime = gameState.getOfflineTime();
+        long diffInMillies = curTime.getTime()- lastTime.getTime();
+        long offlineTime = TimeUnit.SECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        if (offlineTime <= 59){
+            Intent switchActivity = new Intent(OfflineEarningActivity.this, GameActivity.class);
+            startActivity(switchActivity);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_earning);
@@ -24,15 +38,22 @@ public class OfflineEarningActivity extends AppCompatActivity {
         Date curTime = Calendar.getInstance().getTime();
         Date lastTime = gameState.getOfflineTime();
         long diffInMillies = curTime.getTime()- lastTime.getTime();
-        long offlineTime = TimeUnit.MINUTES.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        long offlineTime = TimeUnit.SECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        if (offlineTime <= 59){
+            Intent switchActivity = new Intent(OfflineEarningActivity.this, GameActivity.class);
+            startActivity(switchActivity);
+        }
+        offlineTime /= 60;
         if(offlineTime>30){
             offlineTime = 30;
         }
 
+
+
         int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
 
         TextView textView = findViewById(R.id.textView7);
-        textView.setText("Du warst " + offlineTime + "/120 Minuten offline\n in der Zeit hast "+ offEarn + " Kekse verdient.");
+        textView.setText("Du warst " + offlineTime + "/30 Minuten offline\n in der Zeit hast "+ offEarn + " Kekse verdient.");
         gameState.incCcount(offEarn);
 
         ImageButton btnContinue = findViewById(R.id.button6);
