@@ -25,14 +25,14 @@ public class OfflineEarningActivity extends AppCompatActivity {
         Date lastTime = gameState.getOfflineTime();
         long diffInMillies = curTime.getTime()- lastTime.getTime();
         long offlineTime = TimeUnit.MINUTES.convert(diffInMillies,TimeUnit.MILLISECONDS);
-        if(offlineTime>120){
-            offlineTime = 120;
+        if(offlineTime>30){
+            offlineTime = 30;
         }
 
-        int offEarn = (int)offlineTime*60*gameState.getClickspersecond();
+        int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
 
         TextView textView = findViewById(R.id.textView7);
-        textView.setText("Du warst " + offlineTime + "/120 Minuten offline\n und hast "+ offEarn + " Kekse verdient.");
+        textView.setText("Du warst " + offlineTime + "/120 Minuten offline\n in der Zeit hast "+ offEarn + " Kekse verdient.");
         gameState.incCcount(offEarn);
 
         ImageButton btnContinue = findViewById(R.id.button6);
