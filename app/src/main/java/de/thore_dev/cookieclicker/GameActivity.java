@@ -28,25 +28,42 @@ public class GameActivity extends AppCompatActivity {
     static boolean activitySwitch;
 
     //Anzahl der geklickten Cookies in einer Sekunde
-    static int userClicks;
+    static int userCps;
+
+    static int userClicks = 0;
+
+    static boolean holdButton = false;
 
     static Timer t;
 
     static GameState gameState;
 
-    public void initTimer(TextView tv, TextView tv2){
+    public void initTimer(TextView tv, TextView tv2, TextView tv3){
         if(t == null) {
             t = new Timer();
             t.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     gameState.incCcount(gameState.getClickspersecond());
+                    if(gameState.getClickspersecond()>0){
+                        userClicks += gameState.getClickspersecond();
+                    }
+                    if (holdButton){
+                        userClicks++;
+                        gameState.incCcount(gameState.getMultiplier());
+                        userCps += gameState.getMultiplier(); // anzahl zu cps hinzufügen
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if(userClicks>=1000){
+                                userClicks -= 1000;
+                                gameState.incRarenc(1);
+                                tv3.setText(Integer.toString(gameState.getRarenc()));//schreibt rarenc in das textfeld
+                            }
                             tv.setText(Integer.toString(gameState.getCcount()));
-                            tv2.setText(gameState.getClickspersecond()+userClicks + " CPS");
-                            userClicks = 0;
+                            tv2.setText(gameState.getClickspersecond()+userCps + " CPS");
+                            userCps = 0;
                         }
                     });
 
@@ -55,18 +72,6 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-   /* public void clickcounterrnc(TextView tv,TextView tv2){  // counter für rare nc
-        if (userClicks % 1000 == 0){
-            gameState.incRarenc(userClicks);
-        }
-        @Override
-                public void rc(){
-        TextView tv = findViewById(R.id.TextNormalerKeks);
-        tv.setText(Integer.toString(gameState.getRarenc()));
-            tv2.setText(gameState.getClickspersecond()+userClicks);
-             = 0;
-        }
-    }*/
 
     @Override
     public void onStop() {
@@ -86,7 +91,8 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
         TextView tv = findViewById(R.id.textView2);
         TextView tv2 = findViewById(R.id.textView8);
-        initTimer(tv, tv2);
+        TextView tv3 = findViewById(R.id.TextNormalerKeks);
+        initTimer(tv, tv2, tv3);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -107,6 +113,9 @@ public class GameActivity extends AppCompatActivity {
         TextView tv2 = findViewById(R.id.textView3);
         tv2.setText(Integer.toString(gameState.getMultiplier())+"x");
 
+        TextView tv3 = findViewById(R.id.TextNormalerKeks);
+        tv3.setText(Integer.toString(gameState.getRarenc()));
+
         ImageButton button = findViewById(R.id.button);
 
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -114,6 +123,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+
                     float x = event.getX();
                     float y = event.getY();
                     //Berechne Mittelpunkt des Kekses
@@ -124,17 +134,16 @@ public class GameActivity extends AppCompatActivity {
 
                     //Prüfe ob Keks angeklickt
                     if(d<=m_x) {
+                        holdButton = true;
                         userClicks++;
+                        userCps += gameState.getMultiplier(); // cps hochzählen
                         button.setImageDrawable(getResources().getDrawable(R.drawable.normalerkeksdunkel));// setzt bild aud cookie dark
                         gameState.incCcount(gameState.getMultiplier()); // ccount hoch zählen
                         tv.setText(Integer.toString(gameState.getCcount()));
                     }
-                  /* if (event.getAction() == MotionEvent.ACTION_DOWN){
-                        gameState.incCcount(gameState.getMultiplier());
-
-                    }*/
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    holdButton = false;
                     button.setImageDrawable(getResources().getDrawable(R.drawable.normalerkeks));
                 }
 

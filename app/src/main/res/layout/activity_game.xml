@@ -21,7 +21,7 @@
         android:contentDescription="Click here!!"
         android:orientation="vertical"
         android:scaleType="fitCenter"
-        android:src="@drawable/cookie"
+        android:src="@drawable/normalerkeks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,10 +124,22 @@
         android:id="@+id/TextNormalerKeks"
         android:layout_width="121dp"
         android:layout_height="33dp"
-        android:text="TextView"
+        android:text="0"
+        android:textAlignment="viewEnd"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.837"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="35dp"
+        android:layout_height="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintStart_toEndOf="@+id/TextNormalerKeks"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cookie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,7 @@ public class GameState {
         ccount = pref.getInt("ccount", 0);
         multiplier = pref.getInt("multiplier", 1);
         clickspersecond = pref.getInt("clickspersecond", 0);
+        rarenc = pref.getInt("rarenc", 0);
     }
 
     public void setOfflineTime(Date v) {
@@ -81,7 +82,7 @@ public class GameState {
 
     public void incRarenc(int v) {
         rarenc += v;
-        SharedPreferences.Editor edit = pref.edit();
+        SharedPreferences.Editor edit = pref.edit();  // 3 zeilen speichern wert ab
         edit.putInt("rarenc", rarenc);
         edit.apply();
     }
