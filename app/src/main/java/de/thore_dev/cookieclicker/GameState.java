@@ -14,6 +14,8 @@ public class GameState {
 
     private int clickspersecond;
 
+    private int rarenc;
+
     public GameState(SharedPreferences v) {
         pref = v;
         ccount = pref.getInt("ccount", 0);
@@ -21,13 +23,13 @@ public class GameState {
         clickspersecond = pref.getInt("clickspersecond", 0);
     }
 
-    public void setOfflineTime(Date v){
+    public void setOfflineTime(Date v) {
         SharedPreferences.Editor edit = pref.edit();
         edit.putString("offlinedate", v.toString());
         edit.apply();
     }
 
-    public Date getOfflineTime(){
+    public Date getOfflineTime() {
         return new Date(pref.getString("offlinedate", Calendar.getInstance().getTime().toString()));
     }
 
@@ -70,6 +72,17 @@ public class GameState {
         clickspersecond = v;
         SharedPreferences.Editor edit = pref.edit();
         edit.putInt("clickspersecond", clickspersecond);
+        edit.apply();
+    }
+
+    public int getRarenc() {
+        return rarenc;
+    }
+
+    public void incRarenc(int v) {
+        rarenc += v;
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt("rarenc", rarenc);
         edit.apply();
     }
 

@@ -3,6 +3,7 @@ package de.thore_dev.cookieclicker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -53,7 +54,7 @@ public class OfflineEarningActivity extends AppCompatActivity {
         int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
 
         TextView textView = findViewById(R.id.textView7);
-        textView.setText("Du warst " + offlineTime + "/30 Minuten offline\n in der Zeit hast "+ offEarn + " Kekse verdient.");
+        textView.setText("Du warst " + offlineTime + "/30 Minuten offline.\n In der Zeit hast du verdient:\n"+ offEarn );
         gameState.incCcount(offEarn);
 
         ImageButton btnContinue = findViewById(R.id.button6);

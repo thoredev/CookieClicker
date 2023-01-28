@@ -55,6 +55,19 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+   /* public void clickcounterrnc(TextView tv,TextView tv2){  // counter für rare nc
+        if (userClicks % 1000 == 0){
+            gameState.incRarenc(userClicks);
+        }
+        @Override
+                public void rc(){
+        TextView tv = findViewById(R.id.TextNormalerKeks);
+        tv.setText(Integer.toString(gameState.getRarenc()));
+            tv2.setText(gameState.getClickspersecond()+userClicks);
+             = 0;
+        }
+    }*/
+
     @Override
     public void onStop() {
         super.onStop();
