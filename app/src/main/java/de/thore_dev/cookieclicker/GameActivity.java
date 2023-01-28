@@ -112,10 +112,14 @@ public class GameActivity extends AppCompatActivity {
                     //Prüfe ob Keks angeklickt
                     if(d<=m_x) {
                         userClicks++;
-                        button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));
-                        gameState.incCcount(gameState.getMultiplier());
+                        button.setImageDrawable(getResources().getDrawable(R.drawable.cookie_dark));// setzt bild aud cookie dark
+                        gameState.incCcount(gameState.getMultiplier()); // ccount hoch zählen
                         tv.setText(Integer.toString(gameState.getCcount()));
                     }
+                  /* if (event.getAction() == MotionEvent.ACTION_DOWN){
+                        gameState.incCcount(gameState.getMultiplier());
+
+                    }*/
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     button.setImageDrawable(getResources().getDrawable(R.drawable.cookie));
@@ -124,6 +128,7 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
         ImageButton btnUpgrades = findViewById(R.id.button2);
         btnUpgrades.setOnClickListener(new View.OnClickListener(){
