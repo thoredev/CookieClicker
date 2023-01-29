@@ -39,7 +39,8 @@ public class ShopActivity extends AppCompatActivity {
                     gameState.incCcount(-1* (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
                     gameState.setMultiplier(gameState.getMultiplier()+1);
 
-                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
+                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))
+                            + "\nLevel: " + (int)(gameState.getMultiplier()));
                 }
             }
         });
@@ -53,7 +54,8 @@ public class ShopActivity extends AppCompatActivity {
                     gameState.incCcount(-1*(2500+1000* gameState.getClickspersecond()));
                     gameState.setClickspersecond(gameState.getClickspersecond()+1);
 
-                    btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond()));
+                    btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond())+
+                            "\nLevel: " + (int)(gameState.getClickspersecond()));
                 }
             }
         });

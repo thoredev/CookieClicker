@@ -24,12 +24,12 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="279dp"
-        android:layout_height="49dp"
+        android:layout_width="320dp"
+        android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Multiclick: 1000 "
+        android:text="Multiclick: 1000 \nLevel: 0"
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
@@ -53,12 +53,12 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="279dp"
-        android:layout_height="49dp"
+        android:layout_width="320dp"
+        android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Autoclick:  2500"
+        android:text="Autoclick:  2500 \nLevel: 0"
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

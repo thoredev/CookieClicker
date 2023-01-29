@@ -22,6 +22,7 @@ public class GameState {
         multiplier = pref.getInt("multiplier", 1);
         clickspersecond = pref.getInt("clickspersecond", 0);
         rarenc = pref.getInt("rarenc", 0);
+
     }
 
     public void setOfflineTime(Date v) {
