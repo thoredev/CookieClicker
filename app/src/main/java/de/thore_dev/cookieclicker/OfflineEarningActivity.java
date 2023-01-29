@@ -54,7 +54,7 @@ public class OfflineEarningActivity extends AppCompatActivity {
         int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
 
         TextView textView = findViewById(R.id.textView7);
-        textView.setText("Du warst " + offlineTime + "/30 Minuten offline.\n In der Zeit hast du verdient:\n"+ offEarn );
+        textView.setText("Du warst " + offlineTime + "/30 Minuten offline.\n In der Zeit hast du verdient:\n"+ offEarn+"\n" );
         gameState.incCcount(offEarn);
 
         ImageButton btnContinue = findViewById(R.id.button6);
