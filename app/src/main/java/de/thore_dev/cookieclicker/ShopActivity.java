@@ -31,7 +31,8 @@ public class ShopActivity extends AppCompatActivity {
         GameState gameState = new GameState(getSharedPreferences("gameState", 0));
 
         Button btnMultUp = findViewById(R.id.button3);
-        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
+        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))
+                            + "\nLevel: " + (int)(gameState.getMultiplier()));
         btnMultUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,13 +41,14 @@ public class ShopActivity extends AppCompatActivity {
                     gameState.setMultiplier(gameState.getMultiplier()+1);
 
                     btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))
-                            + "\nLevel: " + (int)(gameState.getMultiplier()));
+                                         + "\nLevel: " + (int)(gameState.getMultiplier()));
                 }
             }
         });
 
         Button btnAutoclick = findViewById(R.id.button5);
-        btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond()));
+        btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond())
+                            + "\nLevel: " + (int)(gameState.getClickspersecond()) );
         btnAutoclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
