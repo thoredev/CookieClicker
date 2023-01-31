@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import de.thore_dev.cookieclicker.databinding.ActivityGameBinding;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -161,6 +163,20 @@ public class GameActivity extends AppCompatActivity {
                 Intent switchActivity = new Intent(GameActivity.this, ShopActivity.class);
                 startActivity(switchActivity);
               
+            }
+        });
+
+        Button taskButton = findViewById(R.id.taskButton);
+        ConstraintLayout taskView = findViewById(R.id.taskView);
+        taskView.setVisibility(View.INVISIBLE);
+        taskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(taskView.getVisibility() == View.VISIBLE){
+                    taskView.setVisibility(View.INVISIBLE);
+                } else {
+                    taskView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

@@ -16,13 +16,15 @@ public class GameState {
 
     private int rarenc;
 
+    private int milk;
+
     public GameState(SharedPreferences v) {
         pref = v;
         ccount = pref.getInt("ccount", 0);
         multiplier = pref.getInt("multiplier", 1);
         clickspersecond = pref.getInt("clickspersecond", 0);
         rarenc = pref.getInt("rarenc", 0);
-
+        milk = pref.getInt("milk", 0);
     }
 
     public void setOfflineTime(Date v) {
@@ -85,6 +87,17 @@ public class GameState {
         rarenc += v;
         SharedPreferences.Editor edit = pref.edit();  // 3 zeilen speichern wert ab
         edit.putInt("rarenc", rarenc);
+        edit.apply();
+    }
+
+    public int getMilk() {
+        return milk;
+    }
+
+    public void incMilk(int v) {
+        milk += v;
+        SharedPreferences.Editor edit = pref.edit();  // 3 zeilen speichern wert ab
+        edit.putInt("milk", milk);
         edit.apply();
     }
 
