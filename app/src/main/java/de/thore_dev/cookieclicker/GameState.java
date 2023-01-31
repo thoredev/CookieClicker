@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class GameState {
     private SharedPreferences pref;
-
+    //TODO: Convert CCount and ClicksperSecond to BigInt; Methode zum Umrechnen: M, B, T, AA, AB, ...
     private int ccount;
 
     private int multiplier;
