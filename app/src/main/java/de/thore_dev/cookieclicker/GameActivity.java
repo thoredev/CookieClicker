@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
     static int userClicks = 0;
 
     static boolean holdButton = false;
+
+    static Task task;
 
     static Timer t;
 
@@ -68,6 +72,8 @@ public class GameActivity extends AppCompatActivity {
                             userCps = 0;
                         }
                     });
+
+                    task.update();
 
                 }
             }, 0, 1000);
@@ -117,6 +123,20 @@ public class GameActivity extends AppCompatActivity {
 
         TextView tv3 = findViewById(R.id.TextNormalerKeks);
         tv3.setText(Integer.toString(gameState.getRarenc()));
+
+        TextView tvEasy = findViewById(R.id.textEasy);
+        task = new Task_Easy_Click(gameState);
+        tvEasy.setText(task.getName());
+        tvEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(task.isCompleted()){
+                    task.finish();
+                    task = new Task_Easy_Click(gameState);
+                    tvEasy.setText(task.getName());
+                }
+            }
+        });
 
         ImageButton button = findViewById(R.id.button);
 
