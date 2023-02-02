@@ -145,8 +145,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/taskView"
-        android:layout_width="134dp"
-        android:layout_height="101dp"
+        android:layout_width="156dp"
+        android:layout_height="0dp"
         android:background="#84CDED"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/taskButton"
@@ -154,28 +154,37 @@
 
         <TextView
             android:id="@+id/textHard"
-            android:layout_width="104dp"
-            android:layout_height="33dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
             android:text="TextView"
             android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/textMedium"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-3dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textMedium"
-            android:layout_width="104dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
             android:text="TextView"
             android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/textEasy"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textHard" />
 
         <TextView
             android:id="@+id/textEasy"
-            android:layout_width="104dp"
-            android:layout_height="34dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
             android:text="TextView"
             android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarEasy"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMedium" />
 
@@ -183,8 +192,8 @@
             android:id="@+id/imageView3"
             android:layout_width="27dp"
             android:layout_height="30dp"
-            android:layout_marginStart="2dp"
-            app:layout_constraintStart_toEndOf="@+id/textHard"
+            app:layout_constraintBottom_toBottomOf="@+id/textHard"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/milchgem" />
 
@@ -192,11 +201,9 @@
             android:id="@+id/imageView4"
             android:layout_width="27dp"
             android:layout_height="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView5"
+            app:layout_constraintBottom_toBottomOf="@+id/textMedium"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textMedium"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:layout_constraintVertical_bias="0.32"
+            app:layout_constraintTop_toBottomOf="@+id/textHard"
             app:srcCompat="@drawable/normalerkeks" />
 
         <ImageView
@@ -204,15 +211,28 @@
             android:layout_width="27dp"
             android:layout_height="30dp"
             android:layout_marginBottom="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textEasy"
+            app:layout_constraintBottom_toBottomOf="@+id/textEasy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMedium"
             app:srcCompat="@drawable/kekskr_mel" />
+
+        <ProgressBar
+            android:id="@+id/progressBarEasy"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120dp"
+            android:layout_height="10dp"
+            android:max="100"
+            android:progress="50"
+            android:progressTint="#7AC525"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textEasy"
+            app:layout_constraintStart_toStartOf="@+id/textEasy" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/taskButton"
         android:layout_width="20dp"
-        android:layout_height="111dp"
+        android:layout_height="0dp"
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"

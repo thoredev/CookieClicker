@@ -1,4 +1,7 @@
 package de.thore_dev.cookieclicker;
+
+import android.content.SharedPreferences;
+
 abstract class Task {
     protected GameState state;
     protected String name;
@@ -13,6 +16,26 @@ abstract class Task {
             return false;
         }
     }
+    public int getProgress(){
+        return progress*100/goal;
+    }
+    public void save (SharedPreferences pref, int id, int type){
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(Integer.toString(id)+"_name", name);
+        edit.putInt(Integer.toString(id)+"_progress", progress);
+        edit.putInt(Integer.toString(id)+"_goal", goal);
+        edit.putInt(Integer.toString(id)+"_boni", boni);
+        edit.putInt(Integer.toString(id)+"_type", type);
+        edit.apply();
+    }
+
+    public void load (SharedPreferences pref,int id){
+        name = pref.getString(Integer.toString(id)+"_name", "");
+        goal = pref.getInt(Integer.toString(id)+"_goal", 0);
+        boni = pref.getInt(Integer.toString(id)+"_boni", 0);
+        progress = pref.getInt(Integer.toString(id)+"_progress", 0);
+    }
+
     public String getName(){
         return name;
     }

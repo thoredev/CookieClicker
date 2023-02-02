@@ -16,6 +16,7 @@ import de.thore_dev.cookieclicker.databinding.ActivityGameBinding;
 
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -44,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
 
     static GameState gameState;
 
-    public void initTimer(TextView tv, TextView tv2, TextView tv3){
+    public void initTimer(TextView tv, TextView tv2, TextView tv3, ProgressBar pbEasy){
         if(t == null) {
             t = new Timer();
             t.scheduleAtFixedRate(new TimerTask() {
@@ -70,10 +71,11 @@ public class GameActivity extends AppCompatActivity {
                             tv.setText(Integer.toString(gameState.getCcount()));
                             tv2.setText(gameState.getClickspersecond()+userCps + " CPS");
                             userCps = 0;
+
+                            task.update();
+                            pbEasy.setProgress(task.getProgress());
                         }
                     });
-
-                    task.update();
 
                 }
             }, 0, 1000);
@@ -87,6 +89,7 @@ public class GameActivity extends AppCompatActivity {
         t.cancel();
         t = null;
 
+        task.save(getSharedPreferences("tasks", 0), 0, 0);
         gameState.setOfflineTime(Calendar.getInstance().getTime());
 
         if(!activitySwitch){
@@ -100,7 +103,8 @@ public class GameActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.textView2);
         TextView tv2 = findViewById(R.id.textView8);
         TextView tv3 = findViewById(R.id.TextNormalerKeks);
-        initTimer(tv, tv2, tv3);
+        ProgressBar pbEasy = findViewById(R.id.progressBarEasy);
+        initTimer(tv, tv2, tv3, pbEasy);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -126,6 +130,10 @@ public class GameActivity extends AppCompatActivity {
 
         TextView tvEasy = findViewById(R.id.textEasy);
         task = new Task_Easy_Click(gameState);
+        int type = getSharedPreferences("tasks", 0).getInt(Integer.toString(0)+"_type",-1);
+        if(type!=-1){
+            task.load(getSharedPreferences("tasks", 0), 0);
+        }
         tvEasy.setText(task.getName());
         tvEasy.setOnClickListener(new View.OnClickListener() {
             @Override
