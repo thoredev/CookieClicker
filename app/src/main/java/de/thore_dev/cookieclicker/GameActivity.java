@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,9 +40,9 @@ public class GameActivity extends AppCompatActivity {
 
     static boolean holdButton = false;
 
-    static Task task;
-
     static Timer t;
+
+    static TaskManager taskManager;
 
     static GameState gameState;
 
@@ -72,8 +73,7 @@ public class GameActivity extends AppCompatActivity {
                             tv2.setText(gameState.getClickspersecond()+userCps + " CPS");
                             userCps = 0;
 
-                            task.update();
-                            pbEasy.setProgress(task.getProgress());
+                            taskManager.updateTasks();
                         }
                     });
 
@@ -89,7 +89,6 @@ public class GameActivity extends AppCompatActivity {
         t.cancel();
         t = null;
 
-        task.save(getSharedPreferences("tasks", 0), 0, 0);
         gameState.setOfflineTime(Calendar.getInstance().getTime());
 
         if(!activitySwitch){
@@ -128,23 +127,15 @@ public class GameActivity extends AppCompatActivity {
         TextView tv3 = findViewById(R.id.TextNormalerKeks);
         tv3.setText(Integer.toString(gameState.getRarenc()));
 
-        TextView tvEasy = findViewById(R.id.textEasy);
-        task = new Task_Easy_Click(gameState);
-        int type = getSharedPreferences("tasks", 0).getInt(Integer.toString(0)+"_type",-1);
-        if(type!=-1){
-            task.load(getSharedPreferences("tasks", 0), 0);
-        }
-        tvEasy.setText(task.getName());
-        tvEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(task.isCompleted()){
-                    task.finish();
-                    task = new Task_Easy_Click(gameState);
-                    tvEasy.setText(task.getName());
-                }
-            }
-        });
+        Stack<View> taskUIElements = new Stack<View>();
+        taskUIElements.push((View)findViewById(R.id.progressBarHard));
+        taskUIElements.push((View)findViewById(R.id.progressBarMedium));
+        taskUIElements.push((View)findViewById(R.id.progressBarEasy));
+        taskUIElements.push((View)findViewById(R.id.textHard));
+        taskUIElements.push((View)findViewById(R.id.textMedium));
+        taskUIElements.push((View)findViewById(R.id.textEasy));
+
+        taskManager = new TaskManager(getSharedPreferences("tasks", 0), gameState, taskUIElements);
 
         ImageButton button = findViewById(R.id.button);
 
