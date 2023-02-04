@@ -46,6 +46,16 @@ public class GameActivity extends AppCompatActivity {
 
     static GameState gameState;
 
+    public void UpdateUICounters(){
+        TextView tvCcount = findViewById(R.id.textView2);
+        tvCcount.setText(Integer.toString(gameState.getCcount()));
+
+        TextView tvRarenc = findViewById(R.id.TextNormalerKeks);
+        tvRarenc.setText(Integer.toString(gameState.getRarenc()));
+
+        TextView tvMilk = findViewById(R.id.textMilchGem);
+        tvMilk.setText(Integer.toString(gameState.getMilk()));
+    }
     public void initTimer(TextView tv, TextView tv2, TextView tv3, ProgressBar pbEasy){
         if(t == null) {
             t = new Timer();
@@ -67,12 +77,10 @@ public class GameActivity extends AppCompatActivity {
                             if(userClicks>=1000){
                                 userClicks -= 1000;
                                 gameState.incRarenc(1);
-                                tv3.setText(Integer.toString(gameState.getRarenc()));//schreibt rarenc in das textfeld
                             }
-                            tv.setText(Integer.toString(gameState.getCcount()));
                             tv2.setText(gameState.getClickspersecond()+userCps + " CPS");
                             userCps = 0;
-
+                            UpdateUICounters();
                             taskManager.updateTasks();
                         }
                     });
@@ -157,6 +165,7 @@ public class GameActivity extends AppCompatActivity {
                     if(d<=m_x) {
                         holdButton = true;
                         userClicks++;
+                        taskManager.processUserclick();
                         userCps += gameState.getMultiplier(); // cps hochzählen
                         button.setImageDrawable(getResources().getDrawable(R.drawable.normalerkeksdunkel));// setzt bild aud cookie dark
                         gameState.incCcount(gameState.getMultiplier()); // ccount hoch zählen
