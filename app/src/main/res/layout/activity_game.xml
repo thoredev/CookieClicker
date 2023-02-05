@@ -50,6 +50,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:paddingHorizontal="2dp"
         android:text="0"
         android:textColor="#FF5722"
         android:textSize="48sp"
@@ -61,7 +62,8 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="27dp"
+        android:paddingHorizontal="2dp"
         android:text="1x"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -111,6 +113,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:padding="2dp"
         android:text="0 CPS"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -123,8 +126,9 @@
 
     <TextView
         android:id="@+id/TextNormalerKeks"
-        android:layout_width="121dp"
-        android:layout_height="33dp"
+        android:layout_width="130dp"
+        android:layout_height="32dp"
+        android:paddingHorizontal="2dp"
         android:text="0"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -289,8 +293,9 @@
 
     <TextView
         android:id="@+id/textMilchGem"
-        android:layout_width="114dp"
-        android:layout_height="28dp"
+        android:layout_width="122dp"
+        android:layout_height="29dp"
+        android:paddingHorizontal="2dp"
         android:text="0"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
