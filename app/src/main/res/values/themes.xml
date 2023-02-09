@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
+        <item name="android:colorEdgeEffect">@color/white</item>
+
         <item name="android:fontFamily">@font/fredoka_one</item>
         <!-- Customize your theme here. -->
     </style>

@@ -52,13 +52,16 @@ public class OfflineEarningActivity extends AppCompatActivity {
 
 
         int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
-        int offEarnRarenc = ((int)offlineTime*60*gameState.getClickspersecond())/1000;
+        int offEarnRarenc = ((int)offlineTime*60*gameState.getClickspersecond())/10000;
 
         TextView textView = findViewById(R.id.textView7);
         textView.setText("Deine Produktion lief " + offlineTime + "/30 Minuten ohne dich weiter und produzierte:");
         TextView textview2 = findViewById(R.id.anzeigeLevel1);
-        textview2.setText(offEarn + "\n" ); //es fehlt noch der rarenc
+        textview2.setText(Integer.toString(offEarn));
+        TextView textview3 = findViewById(R.id.anzeige2Level1);
+        textview3.setText(Integer.toString(offEarnRarenc));
         gameState.incCcount(offEarn);
+        gameState.incRarenc(offEarnRarenc);
 
         ImageButton btnContinue = findViewById(R.id.button6);
         btnContinue.setOnClickListener(new View.OnClickListener() {
