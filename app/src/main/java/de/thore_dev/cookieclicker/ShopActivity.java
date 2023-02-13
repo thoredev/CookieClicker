@@ -1,13 +1,17 @@
 package de.thore_dev.cookieclicker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class ShopActivity extends AppCompatActivity {
 
@@ -69,6 +73,69 @@ public class ShopActivity extends AppCompatActivity {
                 activitySwitch = true;
                 Intent switchActivity = new Intent(ShopActivity.this, GameActivity.class);
                 startActivity(switchActivity);
+            }
+        });
+
+
+        TextView textGift = findViewById(R.id.textGift);
+        Button btnNormal = findViewById(R.id.buttonChestNormal);
+        Button btnOP = findViewById(R.id.buttonChestOP);
+        Button btnDanger = findViewById(R.id.buttonChestDanger);
+        ConstraintLayout fortuneCookieLayout = findViewById(R.id.layoutFortuneCookie);
+        ImageButton fortuneCookie = findViewById(R.id.fortuneCookie);
+
+        fortuneCookieLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fortuneCookieLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        fortuneCookie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fortuneCookieLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+        btnNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnNormal.setText("Normal \n Kosten: 1");
+                gameState.incMilk(-1);
+                fortuneCookieLayout.setVisibility(View.VISIBLE);
+                Random R = new Random();
+                int eventID = R.nextInt(20);
+                if(eventID == 0){
+                    int milk2 = 2;
+                    textGift.setText("Du hast "+Integer.toString(milk2) + " Milchgläser gewonnen!");
+                    gameState.incMilk(milk2);
+                } else if(eventID == 1){
+                    int milk1 = 1;
+                    textGift.setText("Du hast " +Integer.toString(milk1) + " Milchglas gewonnen!");
+                    gameState.incMilk(milk1);
+                } else if(eventID >= 2 && eventID <= 8){
+                    int rarenc = 5+R.nextInt(35);
+                    textGift.setText("Du hast "+Integer.toString(rarenc) + " ganze Kekse gewonnen!");
+                    gameState.incRarenc(rarenc);
+                } else {
+                    int ccount = 500+R.nextInt(1000);
+                    textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
+                    gameState.incCcount(ccount);
+
+                }
+            }
+        });
+        btnOP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fortuneCookieLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        btnDanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fortuneCookieLayout.setVisibility(View.VISIBLE);
             }
         });
     }
