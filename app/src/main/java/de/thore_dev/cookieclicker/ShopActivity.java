@@ -102,27 +102,29 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 btnNormal.setText("Normal \n Kosten: 1");
-                gameState.incMilk(-1);
-                fortuneCookieLayout.setVisibility(View.VISIBLE);
-                Random R = new Random();
-                int eventID = R.nextInt(20);
-                if(eventID == 0){
-                    int milk2 = 2;
-                    textGift.setText("Du hast "+Integer.toString(milk2) + " Milchgläser gewonnen!");
-                    gameState.incMilk(milk2);
-                } else if(eventID == 1){
-                    int milk1 = 1;
-                    textGift.setText("Du hast " +Integer.toString(milk1) + " Milchglas gewonnen!");
-                    gameState.incMilk(milk1);
-                } else if(eventID >= 2 && eventID <= 8){
-                    int rarenc = 5+R.nextInt(35);
-                    textGift.setText("Du hast "+Integer.toString(rarenc) + " ganze Kekse gewonnen!");
-                    gameState.incRarenc(rarenc);
-                } else {
-                    int ccount = 500+R.nextInt(1000);
-                    textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
-                    gameState.incCcount(ccount);
+                if(gameState.getMilk() > 0) {
+                    gameState.incMilk(-1);
+                    fortuneCookieLayout.setVisibility(View.VISIBLE);
+                    Random R = new Random();
+                    int eventID = R.nextInt(20);
+                    if (eventID == 0) {
+                        int milk2 = 2;
+                        textGift.setText("Du hast " + Integer.toString(milk2) + " Milchgläser gewonnen!");
+                        gameState.incMilk(milk2);
+                    } else if (eventID == 1) {
+                        int milk1 = 1;
+                        textGift.setText("Du hast " + Integer.toString(milk1) + " Milchglas gewonnen!");
+                        gameState.incMilk(milk1);
+                    } else if (eventID >= 2 && eventID <= 8) {
+                        int rarenc = 5 + R.nextInt(35);
+                        textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
+                        gameState.incRarenc(rarenc);
+                    } else {
+                        int ccount = 500 + R.nextInt(1000);
+                        textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
+                        gameState.incCcount(ccount);
 
+                    }
                 }
             }
         });
