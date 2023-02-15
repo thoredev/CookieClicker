@@ -79,6 +79,7 @@ public class ShopActivity extends AppCompatActivity {
 
         TextView textGift = findViewById(R.id.textGift);
         Button btnNormal = findViewById(R.id.buttonChestNormal);
+        btnNormal.setText("Normal \n Kosten: 1");
         Button btnOP = findViewById(R.id.buttonChestOP);
         Button btnDanger = findViewById(R.id.buttonChestDanger);
         ConstraintLayout fortuneCookieLayout = findViewById(R.id.layoutFortuneCookie);
