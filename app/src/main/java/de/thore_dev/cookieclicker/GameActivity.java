@@ -125,7 +125,6 @@ public class GameActivity extends AppCompatActivity {
         activitySwitch = false;
 
         gameState = new GameState(getSharedPreferences("gameState", 0));
-
         TextView tv = findViewById(R.id.textView2);
         tv.setText(Integer.toString(gameState.getCcount()));
 
