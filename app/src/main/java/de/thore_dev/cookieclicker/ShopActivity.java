@@ -81,7 +81,9 @@ public class ShopActivity extends AppCompatActivity {
         Button btnNormal = findViewById(R.id.buttonChestNormal);
         btnNormal.setText("Normal \n Kosten: 1");
         Button btnOP = findViewById(R.id.buttonChestOP);
+        btnOP.setText("Normal \n Kosten: 1");
         Button btnDanger = findViewById(R.id.buttonChestDanger);
+        btnDanger.setText("Normal \n Kosten: 1");
         ConstraintLayout fortuneCookieLayout = findViewById(R.id.layoutFortuneCookie);
         ImageButton fortuneCookie = findViewById(R.id.fortuneCookie);
 
@@ -129,17 +131,111 @@ public class ShopActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+
+
+
         btnOP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fortuneCookieLayout.setVisibility(View.VISIBLE);
+
+                        btnOP.setText("Good \n Kosten: 5");
+                        if(gameState.getMilk() >= 10) {
+                            gameState.incMilk(-10);
+                            fortuneCookieLayout.setVisibility(View.VISIBLE);
+                            Random R = new Random();
+                            int eventID = R.nextInt(20);
+                            if (eventID == 0) {
+                                int milk2 = 15;
+                                textGift.setText("Du hast " + Integer.toString(milk2) + " Milchgläser gewonnen!");
+                                gameState.incMilk(milk2);
+                            } else if (eventID == 1) {
+                                int milk1 = 20;
+                                textGift.setText("Du hast " + Integer.toString(milk1) + " Milchglas gewonnen!");
+                                gameState.incMilk(milk1);
+                            } else if (eventID >= 2 && eventID <= 8) {
+                                int rarenc = 50 + R.nextInt(100);
+                                textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
+                                gameState.incRarenc(rarenc);
+                            } else {
+                                int ccount = 5000 + R.nextInt(10000);
+                                textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
+                                gameState.incCcount(ccount);
+
+                    }
+                };
             }
         });
         btnDanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fortuneCookieLayout.setVisibility(View.VISIBLE);
-            }
+
+                        btnDanger.setText("Normal \n Kosten: 5");
+                        if(gameState.getMilk() >= 5) {
+                            gameState.incMilk(-5);
+                            fortuneCookieLayout.setVisibility(View.VISIBLE);
+                            Random R = new Random();
+                            int eventID = R.nextInt(40);
+                            if (eventID == 0) {
+                                int milk2 = 20;
+                                textGift.setText("Du hast " + Integer.toString(milk2) + " Milchgläser gewonnen!");
+                                gameState.incMilk(milk2);
+                            } else if (eventID == 1) {
+                                int milk1 = 15;
+                                textGift.setText("Du hast " + Integer.toString(milk1) + " Milchglas gewonnen!");
+                                gameState.incMilk(milk1);
+                            } else if (eventID >= 2 && eventID <= 8) {
+                                int rarenc = 50 + R.nextInt(50);
+                                textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
+                                gameState.incRarenc(rarenc);
+                            } else if (eventID>=9 && eventID <= 20) {
+                                int ccount = 5000 + R.nextInt(10000);
+                                textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
+                                gameState.incCcount(ccount);
+
+                            } else if (eventID == 21) {
+                                if (gameState.getMilk() >= 15) {
+                                    int milk2 = -15;
+                                    textGift.setText(" !OH Nein! \n Das Krümelmonster hat dir 15 Milchgläser weggetrunken!");
+                                    gameState.incMilk(milk2);
+                                } else {
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat dir den Rest deiner Milchgläser weggetrunken!");
+                                    gameState.incMilk( - gameState.getMilk());
+                                }
+                            } else if (eventID == 22) {
+                                if (gameState.getMilk() >= 7) {
+                                    int milk2 = -7;
+                                    textGift.setText(" !OH Nein! \n Das Krümelmonster hat dir 7 Milchgläser weggetrunken!");
+                                    gameState.incMilk(milk2);
+                                } else {
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat dir den Rest deiner Milchgläser weggetrunken!");
+                                    gameState.incMilk( - gameState.getMilk());
+                                }
+                            } else if (eventID >= 23 && eventID <= 29 ) {
+                                if (gameState.getRarenc() >= 40) {
+                                    int rarenc = -40;                          // gibt es einen anderen weg die verlorenen kekse wieder variabel zumachen
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat dir 40 deiner ganzenKekse weggegessen!");
+                                    gameState.incRarenc(rarenc);
+                                } else {
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat dir den Rest deiner ganzenKekse weggegessen!");
+                                    gameState.incRarenc(- gameState.getRarenc());
+
+                                }
+                            } else {
+
+                                    int ccount = (int) (gameState.getCcount() * 0.2);
+                                    if (gameState.getCcount() >= ccount) {
+
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat dir den Rest deiner ganzenKekse weggegessen!");
+                                    gameState.incCcount(- ccount);
+                                }
+                            }
+                            }
+                        }
         });
     }
 }
