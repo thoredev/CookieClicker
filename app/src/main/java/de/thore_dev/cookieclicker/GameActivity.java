@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Stack;
 import java.util.Timer;
@@ -34,9 +35,9 @@ public class GameActivity extends AppCompatActivity {
     static boolean activitySwitch;
 
     //Anzahl der geklickten Cookies in einer Sekunde
-    static int userCps;
+    static BigInteger userCps = new BigInteger("0");
 
-    static int userClicks = 0;
+    static BigInteger userClicks = new BigInteger("0");
 
     static boolean holdButton = false;
 
@@ -48,10 +49,10 @@ public class GameActivity extends AppCompatActivity {
 
     public void UpdateUICounters(){
         TextView tvCcount = findViewById(R.id.textView2);
-        tvCcount.setText(Integer.toString(gameState.getCcount()));
+        tvCcount.setText(gameState.getCcount().toString());
 
         TextView tvRarenc = findViewById(R.id.TextNormalerKeks);
-        tvRarenc.setText(Integer.toString(gameState.getRarenc()));
+        tvRarenc.setText(gameState.BigIntToSuffixString(gameState.getRarenc()));
 
         TextView tvMilk = findViewById(R.id.textMilchGem);
         tvMilk.setText(Integer.toString(gameState.getMilk()));
@@ -63,23 +64,23 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     gameState.incCcount(gameState.getClickspersecond());
-                    if(gameState.getClickspersecond()>0){
-                        userClicks += gameState.getClickspersecond();
+                    if(gameState.getClickspersecond().compareTo(new BigInteger("0"))>0){
+                        userClicks = userClicks.add(gameState.getClickspersecond());
                     }
                     if (holdButton){
-                        userClicks++;
+                        userClicks = userClicks.add(new BigInteger("1"));
                         gameState.incCcount(gameState.getMultiplier());
-                        userCps += gameState.getMultiplier(); // anzahl zu cps hinzufügen
+                        userCps = userCps.add(gameState.getMultiplier()); // anzahl zu cps hinzufügen
                     }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(userClicks>=1000){
-                                userClicks -= 1000;
-                                gameState.incRarenc(1);
+                            if(userClicks.compareTo(new BigInteger("1000"))>=0){
+                                userClicks = userClicks.subtract(new BigInteger("1000"));
+                                gameState.incRarenc(new BigInteger("1"));
                             }
-                            tv2.setText(gameState.getClickspersecond()+userCps + " CPS");
-                            userCps = 0;
+                            tv2.setText(gameState.BigIntToSuffixString(gameState.getClickspersecond().add(userCps)) + " CPS");
+                            userCps = new BigInteger("0");
                             UpdateUICounters();
                             taskManager.updateTasks();
                         }
@@ -126,13 +127,13 @@ public class GameActivity extends AppCompatActivity {
 
         gameState = new GameState(getSharedPreferences("gameState", 0));
         TextView tv = findViewById(R.id.textView2);
-        tv.setText(Integer.toString(gameState.getCcount()));
+        tv.setText(gameState.getCcount().toString());
 
         TextView tv2 = findViewById(R.id.textView3);
-        tv2.setText(Integer.toString(gameState.getMultiplier())+"x");
+        tv2.setText(gameState.BigIntToSuffixString(gameState.getMultiplier())+"x");
 
         TextView tv3 = findViewById(R.id.TextNormalerKeks);
-        tv3.setText(Integer.toString(gameState.getRarenc()));
+        tv3.setText(gameState.BigIntToSuffixString(gameState.getRarenc()));
 
         Stack<View> taskUIElements = new Stack<View>();
         taskUIElements.push((View)findViewById(R.id.progressBarHard));
@@ -163,12 +164,12 @@ public class GameActivity extends AppCompatActivity {
                     //Prüfe ob Keks angeklickt
                     if(d<=m_x) {
                         holdButton = true;
-                        userClicks++;
+                        userClicks = userClicks.add(new BigInteger("1"));
                         taskManager.processUserclick();
-                        userCps += gameState.getMultiplier(); // cps hochzählen
+                        userCps = userCps.add(gameState.getMultiplier()); // cps hochzählen
                         button.setImageDrawable(getResources().getDrawable(R.drawable.normalerkeksdunkel));// setzt bild aud cookie dark
                         gameState.incCcount(gameState.getMultiplier()); // ccount hoch zählen
-                        tv.setText(Integer.toString(gameState.getCcount()));
+                        tv.setText(gameState.getCcount().toString());
                     }
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -51,15 +52,15 @@ public class OfflineEarningActivity extends AppCompatActivity {
 
 
 
-        int offEarn = ((int)offlineTime*60*gameState.getClickspersecond())/10;
-        int offEarnRarenc = ((int)offlineTime*60*gameState.getClickspersecond())/10000;
+        BigInteger offEarn = gameState.getClickspersecond().multiply(new BigInteger(Integer.toString((int) (offlineTime*60)))).divide(new BigInteger("10"));
+        BigInteger offEarnRarenc = gameState.getClickspersecond().multiply(new BigInteger(Integer.toString((int) (offlineTime*60)))).divide(new BigInteger("10000"));
 
         TextView textView = findViewById(R.id.textView7);
         textView.setText("Deine Produktion lief " + offlineTime + "/30 Minuten ohne dich weiter und produzierte:");
         TextView textview2 = findViewById(R.id.anzeigeLevel1);
-        textview2.setText(Integer.toString(offEarn));
+        textview2.setText(gameState.BigIntToSuffixString(offEarn));
         TextView textview3 = findViewById(R.id.anzeige2Level1);
-        textview3.setText(Integer.toString(offEarnRarenc));
+        textview3.setText(gameState.BigIntToSuffixString(offEarnRarenc));
         gameState.incCcount(offEarn);
         gameState.incRarenc(offEarnRarenc);
 

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -35,33 +37,33 @@ public class ShopActivity extends AppCompatActivity {
         GameState gameState = new GameState(getSharedPreferences("gameState", 0));
 
         Button btnMultUp = findViewById(R.id.button3);
-        btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))
-                            + "\nLevel: " + (int)(gameState.getMultiplier()));
+        btnMultUp.setText("Multiclick: " + gameState.BigIntToSuffixString(gameState.getMultiplier().multiply(new BigInteger("1000")))
+                            + "\nLevel: " + gameState.BigIntToSuffixString(gameState.getMultiplier()));
         btnMultUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameState.getCcount()>= (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))){
-                    gameState.incCcount(-1* (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1)));
-                    gameState.setMultiplier(gameState.getMultiplier()+1);
+                if(gameState.getCcount().compareTo(gameState.getMultiplier().multiply(new BigInteger("1000"))) >= 0){
+                    gameState.incCcount(gameState.getMultiplier().multiply(new BigInteger("-1000")));
+                    gameState.setMultiplier(gameState.getMultiplier().add(new BigInteger("1")));
 
-                    btnMultUp.setText("Multiclick: " + (int)(1000*Math.pow(1.5, gameState.getMultiplier()-1))
-                                         + "\nLevel: " + (int)(gameState.getMultiplier()));
+                    btnMultUp.setText("Multiclick: " + gameState.BigIntToSuffixString(gameState.getMultiplier().multiply(new BigInteger("1000")))
+                                         + "\nLevel: " + gameState.BigIntToSuffixString(gameState.getMultiplier()));
                 }
             }
         });
 
         Button btnAutoclick = findViewById(R.id.button5);
-        btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond())
-                            + "\nLevel: " + (int)(gameState.getClickspersecond()) );
+        btnAutoclick.setText("Autoclick: " + gameState.BigIntToSuffixString(gameState.getClickspersecond().multiply(new BigInteger("1000")).add(new BigInteger("2500")))
+                            + "\nLevel: " + gameState.BigIntToSuffixString(gameState.getClickspersecond()));
         btnAutoclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gameState.getCcount()>= 2500+1000* gameState.getClickspersecond()){
-                    gameState.incCcount(-1*(2500+1000* gameState.getClickspersecond()));
-                    gameState.setClickspersecond(gameState.getClickspersecond()+1);
+                if (gameState.getCcount().compareTo(gameState.getClickspersecond().multiply(new BigInteger("1000")).add(new BigInteger("2500"))) >= 0){
+                    gameState.incCcount(gameState.getClickspersecond().multiply(new BigInteger("1000")).add(new BigInteger("2500")).multiply(new BigInteger("-1")));
+                    gameState.setClickspersecond(gameState.getClickspersecond().add(new BigInteger("1")));
 
-                    btnAutoclick.setText("Autoclick: " + (2500+1000* gameState.getClickspersecond())+
-                            "\nLevel: " + (int)(gameState.getClickspersecond()));
+                    btnAutoclick.setText("Autoclick: " + gameState.BigIntToSuffixString(gameState.getClickspersecond().multiply(new BigInteger("1000")).add(new BigInteger("2500")))
+                            + "\nLevel: " + gameState.BigIntToSuffixString(gameState.getClickspersecond()));
                 }
             }
         });
@@ -121,11 +123,11 @@ public class ShopActivity extends AppCompatActivity {
                     } else if (eventID >= 2 && eventID <= 8) {
                         int rarenc = 5 + R.nextInt(35);
                         textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
-                        gameState.incRarenc(rarenc);
+                        gameState.incRarenc(new BigInteger(Integer.toString(rarenc)));
                     } else {
                         int ccount = 500 + R.nextInt(1000);
                         textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
-                        gameState.incCcount(ccount);
+                        gameState.incCcount(new BigInteger(Integer.toString(ccount)));
 
                     }
                 }
@@ -159,11 +161,11 @@ public class ShopActivity extends AppCompatActivity {
                             } else if (eventID >= 2 && eventID <= 8) {
                                 int rarenc = 50 + R.nextInt(100);
                                 textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
-                                gameState.incRarenc(rarenc);
+                                gameState.incRarenc(new BigInteger(Integer.toString(rarenc)));
                             } else {
                                 int ccount = 5000 + R.nextInt(10000);
                                 textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
-                                gameState.incCcount(ccount);
+                                gameState.incCcount(new BigInteger(Integer.toString(ccount)));
 
                     }
                 };
@@ -191,11 +193,11 @@ public class ShopActivity extends AppCompatActivity {
                             } else if (eventID >= 2 && eventID <= 8) {
                                 int rarenc = 50 + R.nextInt(50);
                                 textGift.setText("Du hast " + Integer.toString(rarenc) + " ganze Kekse gewonnen!");
-                                gameState.incRarenc(rarenc);
+                                gameState.incRarenc(new BigInteger(Integer.toString(rarenc)));
                             } else if (eventID>=9 && eventID <= 20) {
                                 int ccount = 5000 + R.nextInt(10000);
                                 textGift.setText("Du hast " + Integer.toString(ccount) + " Kekssplitter gewonnen!");
-                                gameState.incCcount(ccount);
+                                gameState.incCcount(new BigInteger(Integer.toString(ccount)));
 
                             } else if (eventID == 21) {
                                 if (gameState.getMilk() >= 15) {
@@ -216,19 +218,18 @@ public class ShopActivity extends AppCompatActivity {
                                     gameState.incMilk( - gameState.getMilk());
                                 }
                             } else if (eventID >= 23 && eventID <= 29 ) {
-                                if (gameState.getRarenc() >= 40) {
+                                if (gameState.getRarenc().compareTo(new BigInteger("40")) >= 0) {
                                     int rarenc = -40;                          // gibt es einen anderen weg die verlorenen kekse wieder variabel zumachen
                                     textGift.setText("!OH Nein! \n Das Krümelmonster hat dir 40 deiner ganzen Kekse weggegessen!");
-                                    gameState.incRarenc(rarenc);
+                                    gameState.incRarenc(new BigInteger(Integer.toString(rarenc)));
                                 } else {
                                     textGift.setText("!OH Nein! \n Das Krümelmonster hat dir den Rest deiner ganzen Kekse weggegessen!");
-                                    gameState.incRarenc(- gameState.getRarenc());
+                                    gameState.incRarenc(gameState.getRarenc().multiply(new BigInteger("-1")));
 
                                 }
                             } else {
-                                    int ccount = (int) (gameState.getCcount() * 0.2);
-                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat "+Integer.toString(ccount)+" deiner Keksesplitter weggegessen!");
-                                    gameState.incCcount(- ccount);
+                                    textGift.setText("!OH Nein! \n Das Krümelmonster hat "+gameState.BigIntToSuffixString(gameState.getCcount().divide(new BigInteger("-5")))+" deiner Keksesplitter weggegessen!");
+                                    gameState.incCcount(gameState.getCcount().divide(new BigInteger("-5")));
                             }
                             }
                         }
