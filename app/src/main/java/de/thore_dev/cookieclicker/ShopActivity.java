@@ -24,7 +24,7 @@ public class ShopActivity extends AppCompatActivity {
         super.onStop();
         if(!activitySwitch){
             finishAffinity(); //Close App
-        }
+        }//
     }
 
     @Override
