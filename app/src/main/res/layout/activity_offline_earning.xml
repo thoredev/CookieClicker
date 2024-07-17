@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:scaleType="fitCenter"
+            android:contentDescription="Weiter"
             app:srcCompat="@drawable/knopf" />
     </FrameLayout>
 
@@ -250,7 +251,7 @@
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarDailyBonus"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="5dp"

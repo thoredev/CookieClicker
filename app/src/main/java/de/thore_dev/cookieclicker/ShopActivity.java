@@ -105,8 +105,8 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 btnNormal.setText("Normal \n Kosten: 1");
-                if(gameState.getMilk() > 0) {
-                    gameState.incMilk(-1);
+                if(gameState.getRarenc() > 0) {
+                    gameState.incRarenc(-1);
                     fortuneCookieLayout.setVisibility(View.VISIBLE);
                     Random R = new Random();
                     int eventID = R.nextInt(20);

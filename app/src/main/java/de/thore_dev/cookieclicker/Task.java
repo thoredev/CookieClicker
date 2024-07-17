@@ -79,7 +79,7 @@ class Task_Easy_Click extends Task{
     ProgressBar pb;
     public Task_Easy_Click(GameState s, TextView v, ProgressBar p){
         type = 0;
-        goal= s.getCcount() + 3*60* s.getClickspersecond()+500;
+        goal= s.getCcount() + 1*60* s.getClickspersecond()+500;
         name = "Besitze " + goal + " Kekse";
         progress = s.getCcount();
         boni = 100 + s.getMultiplier() * s.getClickspersecond() * 120;
@@ -143,7 +143,7 @@ class Task_Medium_Click extends Task{
     ProgressBar pb;
     public Task_Medium_Click(GameState s, TextView v, ProgressBar p){
         type = 0;
-        goal= s.getCcount() + 50*60* s.getClickspersecond()+500;
+        goal= s.getCcount() + 10*50* s.getClickspersecond()+500;
         name = "Besitze " + goal + " Kekse";
         progress = s.getCcount();
         boni = 2;
@@ -169,7 +169,7 @@ class Task_Hard_Click extends Task{
     ProgressBar pb;
     public Task_Hard_Click(GameState s, TextView v, ProgressBar p){
         type = 0;
-        goal= s.getCcount() + 120*60* s.getClickspersecond()+500;
+        goal= s.getCcount() + 25*60* s.getClickspersecond()+500;
         name = "Besitze " + goal + " Kekse";
         progress = s.getCcount();
         boni = 1;
